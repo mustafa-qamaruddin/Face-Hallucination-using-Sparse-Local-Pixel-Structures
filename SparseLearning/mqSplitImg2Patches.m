@@ -17,7 +17,7 @@ global VISUALS;
         end
         %% loop rows
         fin_col = size(im, 2) - patch_size + 1;
-        step_col = patch_size - overlap
+        step_col = patch_size - overlap;
         for c = 1 : step_col : fin_col
             %% loop cols
             fin_row = size(im, 1) - patch_size + 1;

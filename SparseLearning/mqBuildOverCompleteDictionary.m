@@ -1,15 +1,15 @@
 %% INPUTS:
 %%  K := numberf of nearest neighbors
 %% OUTPUTS:
-%%  CELL OF IPSAY VECTORS OF CENTRAL PIXELS OF ALL PATCHES IN K IMAGES
+%%  CELL OF OVERCOMPLETE DICTIONARY OF ALL PATCHES IN K IMAGES
 function [ output_args ] = mqBuildOverCompleteDictionary(NUM_NEAREST_NEIGHBORS , PATCH_SIZE)
     %% assume training set is all same size & same # of patches
-    k_patches = cell(NUM_NEAREST_NEIGHBORS, 1)
+    k_patches = cell(NUM_NEAREST_NEIGHBORS, 1);
     for k = 1 : NUM_NEAREST_NEIGHBORS
         file_name = sprintf('patches/%d.mat', k);
         k_patches{k} = load(file_name);
         kth_image_patches = k_patches{k}(1);
-        k_patches{k} = struct2array(kth_image_patches(1))
+        k_patches{k} = struct2array(kth_image_patches(1));
     end
     
     %% start building
@@ -34,5 +34,5 @@ function [ output_args ] = mqBuildOverCompleteDictionary(NUM_NEAREST_NEIGHBORS ,
         end
         A{j} = transpose(SINGLE_PATCH_A);
     end
-    save 'overcomplete_dictionary_for_all_patches.mat' A
+    save 'overcomplete_dictionary_for_all_patches.mat' A;
 end
