@@ -1,0 +1,3 @@
+function [image] = asBicubicInterpolation(InputImage)
+image = imresize(InputImage,0.5,'Method','bicubic');
+end
