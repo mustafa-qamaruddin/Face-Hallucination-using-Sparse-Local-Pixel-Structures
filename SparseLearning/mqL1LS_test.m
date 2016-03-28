@@ -12,6 +12,6 @@ y  = A*x0;          % measurements with no noise
 lambda = 0.01;      % regularization parameter
 rel_tol = 0.01;     % relative target duality gap
 
-[OMEGA,status]=l1_ls(A,y,lambda,rel_tol);
+[OMEGA,status]=l1_ls(transpose(A),x0,lambda,rel_tol);
 
 save OMEGA.mat OMEGA

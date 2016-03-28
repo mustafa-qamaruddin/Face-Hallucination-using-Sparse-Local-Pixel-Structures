@@ -17,12 +17,12 @@ VISUALIZE = true;
             y  = A*X0;          % measurements with no noise
             lambda = 0.01;      % regularization parameter
             rel_tol = 0.01;     % relative target duality gap
-            [OMEGA,status]=l1_ls_nonneg(A,y,lambda,rel_tol)
+            [OMEGA,status]=l1_ls_nonneg(transpose(A),X0,lambda,rel_tol);
             coefficients_omega{p} = OMEGA;
             if(VISUALIZE == true && strcmp(status, 'Solved'))
                 figure(1)
                 subplot(2,1,1); bar(X0); ylim([0 255]); title('original signal x0');
-                subplot(2,1,2); bar(OMEGA);  ylim([0 255]); title('reconstructed signal x');
+                subplot(2,1,2); bar(transpose(A)*OMEGA);  ylim([0 255]); title('reconstructed signal x');
             end %% end if solved
         end %% end if patch is not empty
     end %% end loop patches
