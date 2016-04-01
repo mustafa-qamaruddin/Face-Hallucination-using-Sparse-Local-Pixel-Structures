@@ -29,18 +29,22 @@ g = 0.05;
 %% LOAD COEFFICIENTS WEIGHTS %%
 w = struct2cell(load('coefficients_omega_for_all_patches.mat'));
 w = w{1};
-%% LOOP T ITERATIONS %%
 
+%% PADDING $$
+offset=floor(PATCH_SIZE/2);
+interpolated_image = padarray(interpolated_image, [offset offset]);
+        
+%% LOOP T ITERATIONS %%
+    for t = 1 : 150
         counter = 1;
         %% loop rows
-        fin_col = size(interpolated_image, 2) - PATCH_SIZE + 1;
-        step_col = PATCH_SIZE - 0;
-        for c = 1 : step_col : fin_col
+        fin_row = size(interpolated_image, 2) - offset;
+        for c = offset+1 : fin_row
             %% loop cols
-            fin_row = size(interpolated_image, 1) - PATCH_SIZE + 1;
-            for r = 1 : PATCH_SIZE : fin_row
+            fin_col = size(interpolated_image, 1) - offset;
+            for r = offset+1 : fin_col
                 I0 = interpolated_image(r, c);
-                patch = interpolated_image([r:r+PATCH_SIZE-1], [c:c+PATCH_SIZE-1]);
+                patch = interpolated_image([r-offset:r+offset], [c-offset:c+offset]);
                 patch = mqExtractNeighborhoodFromSinglePatch(patch, PATCH_SIZE);
                 weights = cell2mat(w(counter));
                 DELTA_T = I0 -  dot(weights, double(patch));
@@ -50,9 +54,11 @@ w = w{1};
                 counter = counter + 1;
             end
         end
-
-    figure, imshow(interpolated_image), title('Hallucinated Image');
-
-        
+        the_title = sprintf('Hallucinated Image @iteration:=%d', t);
+        hold on
+        figure, imshow(interpolated_image), title(the_title);
+        hold off
+    end
+    figure, imshow(testim), title('Ground Truth');
 end
 
