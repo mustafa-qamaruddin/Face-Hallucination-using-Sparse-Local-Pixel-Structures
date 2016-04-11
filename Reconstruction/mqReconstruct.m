@@ -35,7 +35,7 @@ offset=floor(PATCH_SIZE/2);
 interpolated_image = padarray(interpolated_image, [offset offset]);
         
 %% LOOP T ITERATIONS %%
-    for t = 1 : 150
+    for t = 1 : 300
         counter = 1;
         %% loop rows
         fin_row = size(interpolated_image, 2) - offset;
@@ -47,18 +47,26 @@ interpolated_image = padarray(interpolated_image, [offset offset]);
                 patch = interpolated_image([r-offset:r+offset], [c-offset:c+offset]);
                 patch = mqExtractNeighborhoodFromSinglePatch(patch, PATCH_SIZE);
                 weights = cell2mat(w(counter));
-                DELTA_T = I0 -  dot(weights, double(patch));
+                DELTA_T = double(I0) - dot(weights, double(patch));
+                if DELTA_T ~= 0
+                    DELTA_T;
+                end
                 I = I0 - g * DELTA_T;
                 I - I0
+                %%%% cutoff here
+                if I < 0 
+                    I = 0
+                elseif I > 255
+                    I = 255
+                end
                 interpolated_image(r,c) = I;
                 counter = counter + 1;
             end
         end
-        the_title = sprintf('Hallucinated Image @iteration:=%d', t);
+    end
+        the_title = sprintf('Hallucinated Image @iteration:=%d', 300);
         hold on
         figure, imshow(interpolated_image), title(the_title);
         hold off
-    end
     figure, imshow(testim), title('Ground Truth');
 end
-
