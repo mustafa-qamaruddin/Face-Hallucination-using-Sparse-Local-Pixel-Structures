@@ -1,4 +1,4 @@
-function [ output_args ] = mq_opticalflow( interpolated_low_res, training_high_res )
+function [ output_args ] = k_opticalflow( interpolated_low_res, training_high_res )
 %MQ_OPTICALFLOW Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -13,7 +13,7 @@ function [ output_args ] = mq_opticalflow( interpolated_low_res, training_high_r
     end
     
     %% CALCULLATE FLOW
-    opticFlow = opticalFlowLK('NoiseThreshold',0.009); %% @Christina, use horn schunks method in here, thanks!
+    opticFlow = opticalFlowHS('MaxIteration',20,'VelocityDifference',0);
     %% sets previous frame to black %%
     reset(opticFlow);
     %% INTERPOLATED LOW RES IMAGE
@@ -33,3 +33,4 @@ function [ output_args ] = mq_opticalflow( interpolated_low_res, training_high_r
     %% RETURN MAGNITUDE
     output_args = flow.Magnitude;
 end
+
