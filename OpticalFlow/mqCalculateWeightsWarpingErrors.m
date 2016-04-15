@@ -1,8 +1,9 @@
 function [output_args] = mqCalculateWeightsWarpingErrors(Er_k)
 
     %% USE GLOBALS %%
-    global PATCH_WIDTH;
-    global PATCH_HEIGHT;
+    global PATCH_SIZE;
+    PATCH_WIDTH = PATCH_SIZE;
+    PATCH_HEIGHT = PATCH_SIZE;
     global EPSILON;
     global BETA;
 
@@ -15,7 +16,7 @@ function [output_args] = mqCalculateWeightsWarpingErrors(Er_k)
     offset_h = floor(PATCH_HEIGHT/2);
     
     %% PADDING %%
-    PADDED_Er_k = padarray(Er_k, [offset_w offset_h])
+    PADDED_Er_k = padarray(Er_k, [offset_w offset_h]);
     
     %% OUTER LOOP PIXELS %%
     b_k = padarray(zeros(image_width, image_height), [offset_w offset_h]);

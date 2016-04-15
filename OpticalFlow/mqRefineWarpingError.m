@@ -1,16 +1,15 @@
-function[out] = mqRefineWarpingError()
+function[out] = mqRefineWarpingError(B)
 
     %% display graphs
     global VISUALS;
-    VISUALS = true;
 
     %% consider padding in original test image
     global PATCH_SIZE;
     offset=floor(PATCH_SIZE/2);
 
     %% load Normalized Warping Weights Matrix
-    B = load('B.mat');
-    B = struct2array(B);
+    %%B = load('B.mat');
+    %%B = struct2array(B);
     
     %% load central pixels
     ALL_IPSAYs = load('central_pixels_for_all_patches.mat');
@@ -57,8 +56,7 @@ function[out] = mqRefineWarpingError()
                 C_xy = nominator / (denominator + EPSILON);
                 
                 %% Refine Coefficients
-                OMEGA_HAT = C_xy * OMEGA
-                
+                OMEGA_HAT = C_xy * OMEGA;
                 if(VISUALS == true)
                     new_ipsay_hat = transpose(A)*OMEGA_HAT;
                     mqTestReverseL1LS(IPSAY, new_ipsay_hat);
