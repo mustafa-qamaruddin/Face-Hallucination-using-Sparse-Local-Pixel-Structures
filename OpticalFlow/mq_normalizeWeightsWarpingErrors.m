@@ -1,4 +1,4 @@
-function [ output_args ] = mq_normalizeWeightsWarpingErrors( input_args )
+function [ output_args ] = mq_normalizeWeightsWarpingErrors( cell_warping_weights )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -6,33 +6,32 @@ function [ output_args ] = mq_normalizeWeightsWarpingErrors( input_args )
 %%  CONSTANTS SHOULD BE PASSED AS FUNCTION ARGUMENtS
 %%  OR MOVE TO FUNCTION mqSetGlobals.m
 %%
-global PATCH_WIDTH;
-global PATCH_HEIGHT;
+global PATCH_SIZE;
 global EPSILON;
 global BETA;
 %% mqInitGlobals %%
-PATCH_WIDTH = 9;
-PATCH_HEIGHT = 9;
+PATCH_WIDTH = PATCH_SIZE;
+PATCH_HEIGHT = PATCH_SIZE;
 EPSILON = 0.009;
 BETA = 0.009;
 %% END CONSTANTS %%
 
 %% WARPING FILE IO
-warping_weights_dir_path = uigetdir;
-warping_files = dir(strcat(warping_weights_dir_path, '\*.txt'));
-num_files = length(warping_files);
+%%warping_weights_dir_path = uigetdir;
+%%warping_files = dir(strcat(warping_weights_dir_path, '\*.txt'));
+num_files = size(cell_warping_weights, 1);
 
 %% LOOP K WARPING FILES
 %% Consider preallocating a variable or array 
 %% before entering the loop by using zeros, ones, cell, or a similar
 %% function
-b = cell(num_files, 1);
-for i = 1 : num_files
+%%b = cell(num_files, 1);
+%%for i = 1 : num_files
     %% FILE READ %%
-    file_name = warping_files(i).name;
-    b{i} = dlmread(strcat(warping_weights_dir_path ,'\', file_name));
-end
-
+  %%  file_name = warping_files(i).name;
+  %%  b{i} = dlmread(strcat(warping_weights_dir_path ,'\', file_name));
+%%end
+b = cell_warping_weights;
 %% LOOP SENTIMENTS %%
 w = size(b{1}, 1);
 h = size(b{1}, 2);
@@ -61,5 +60,6 @@ for x = 1 : w
     end
 end
 %% END OUTER LOOP %%
-save B.mat B;
+%%save B.mat B;
+output_args = B;
 end

@@ -5,13 +5,35 @@ global PATCH_OVERLAP;
 PATCH_OVERLAP = 0;
 global VISUALS;
 VISUALS = false;
+global LOW_RES_INPUT_TEST_IMAGE;
+LOW_RES_INPUT_TEST_IMAGE = imread(strcat(pwd, '\' ,'SplitFrame_462.bmp'));
+
+global OPTICAL_FLOW_ALGORITHM;
+OPTICAL_FLOW_ALGORITHM = 1; %0:lucas_kanade , 1:horn_shunks
+
+global SHOW_MSE_ANALYTICS;
+SHOW_MSE_ANALYTICS = true;
+
 %% STEP 1 %%
-%#mqSaveKImages();
+mqSaveKImages();
+
 %% STEP 2 %%
 KIMAGES = struct2cell(load('kimages.mat'));
 mqSplitImg2PatchesV2(KIMAGES{1}, PATCH_SIZE, PATCH_OVERLAP);
 
 mqBuildCentralPixels(size(KIMAGES{1}, 1), PATCH_SIZE);
 mqBuildOverCompleteDictionary(size(KIMAGES{1}, 1), PATCH_SIZE);
-mqL1LS();
+
+%% Large-Scale Regularized Least Squares
+%%mqL1LS();
+%##mqFPC
+
+%% warping errors effect on coefficients omega
+%%mqGlueWarping(KIMAGES{1});
+
 %% STEP 3 $$
+if(SHOW_MSE_ANALYTICS == true)
+        mqReconstruct(0.05);
+else
+        mqReconstruct(0.05);
+end
