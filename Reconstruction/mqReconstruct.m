@@ -3,9 +3,9 @@ function [ ret_lambda_mse, ret_lambda_psnr ] = mqReconstruct(learning_rate)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
-%%im_path = 'C:\Users\Qamar-ud-Din\Documents\MATLAB\SplitFrame_479.bmp';
+im_path = 'MSE.bmp';
 
-%%testim = imread(im_path);
+testim = imread(im_path);
 global LOW_RES_INPUT_TEST_IMAGE;
 testim = LOW_RES_INPUT_TEST_IMAGE;
 %% low resolution %%
@@ -57,15 +57,15 @@ padded_test_image = padarray(testim, [offset offset]);
                 weights = cell2mat(w(counter));
                 DELTA_T = double(I0) - dot(weights, double(patch));
                 if DELTA_T ~= 0
-                    DELTA_T;
+                    DELTA_T ;
                 end
                 I = I0 - g * DELTA_T;
-                I - I0;
+                I = I0;
                 %%%% cutoff here
                 if I < 0 
-                    I = 0
+                    I = 0;
                 elseif I > 255
-                    I = 255
+                    I = 255;
                 end
                 interpolated_image(r,c) = I;
                 counter = counter + 1;
@@ -74,7 +74,7 @@ padded_test_image = padarray(testim, [offset offset]);
         %% Christina MSE
         if(SHOW_MSE_ANALYTICS == true)
             mse_for_iterations(t,1) = immse(padded_test_image, interpolated_image);
-            [peaksnr, snr] = psnr(interpolated_image, padded_test_image);
+            [peaksnr, ~] = psnr(interpolated_image, padded_test_image);
             psnr_for_iterations(t,1) = peaksnr;
         end
         %% END Christina MSE
@@ -93,10 +93,10 @@ padded_test_image = padarray(testim, [offset offset]);
         %% END Christina PLOT MSE
         
         %% Christina LAMBDA MSE
-        ret = [0, 0];
+        ret = [0,0];
         if(SHOW_MSE_ANALYTICS == true)
             ret_lambda_mse = immse(padded_test_image, interpolated_image);
-            [peaksnr, snr] = psnr(interpolated_image, padded_test_image);
+            [peaksnr, ~] = psnr(interpolated_image, padded_test_image);
             ret_lambda_psnr = peaksnr;
         end
         %% END Christina LAMBDA MSE
