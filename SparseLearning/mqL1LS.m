@@ -17,7 +17,7 @@ VISUALIZE = true;
             y  = A*X0;          % measurements with no noise
             lambda = 0.01;      % regularization parameter
             rel_tol = 0.01;     % relative target duality gap
-            [OMEGA,status]=l1_ls_nonneg(transpose(A),A, size(A, 2), size(A, 1), X0,lambda,rel_tol, true,1e-3, 100);
+            [OMEGA,status]=l1_ls_nonneg(transpose(A),  X0,lambda,rel_tol);
             coefficients_omega{p} = OMEGA;
             if(VISUALIZE == true && strcmp(status, 'Solved'))
                 ipsay_hat = transpose(A)*OMEGA;
