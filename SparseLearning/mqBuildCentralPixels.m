@@ -6,7 +6,7 @@ function [ output_args ] = mqBuildCentralPixels( NUM_NEAREST_NEIGHBORS , PATCH_S
     %% assume training set is all same size & same # of patches
     k_patches = cell(NUM_NEAREST_NEIGHBORS, 1);
     for k = 1 : NUM_NEAREST_NEIGHBORS
-        file_name = sprintf('patches/%d.mat', k);
+        file_name = sprintf('../patches/%d.mat', k);
         k_patches{k} = load(file_name);
         kth_image_patches = k_patches{k}(1);
         k_patches{k} = struct2array(kth_image_patches(1));

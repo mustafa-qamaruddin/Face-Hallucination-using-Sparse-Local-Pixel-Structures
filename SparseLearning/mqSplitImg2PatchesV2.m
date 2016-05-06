@@ -34,7 +34,7 @@ global VISUALS;
                 patches_counter = patches_counter + 1;
             end %% end loop columns
         end %% end loop rows
-        file_name = sprintf('patches/%d.mat', k);
+        file_name = sprintf('../patches/%d.mat', k);
         save(file_name,'patches');
         if(VISUALS == true)
             figure, imshow(visual_im), title(sprintf('%dth nearest image', k));
