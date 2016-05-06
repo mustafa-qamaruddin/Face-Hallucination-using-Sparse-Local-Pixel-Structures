@@ -2,7 +2,7 @@ function[] = mqSaveKImages()
 
     %% IMAGE FILE IO
     lowres_dir_path = uigetdir;
-    image_files = dir(strcat(lowres_dir_path, '\*.bmp'));
+    image_files = dir(strcat(lowres_dir_path, '\*.jpg'));
     num_files = length(image_files);
 
     ims = cell(num_files, 1);
