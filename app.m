@@ -6,7 +6,7 @@ PATCH_OVERLAP = 0;
 global VISUALS;
 VISUALS = false;
 global LOW_RES_INPUT_TEST_IMAGE;
-LOW_RES_INPUT_TEST_IMAGE = imread(strcat(pwd, '\' ,'SplitFrame_462.bmp'));
+LOW_RES_INPUT_TEST_IMAGE = imread(strcat(pwd, '\' ,'WDF_2678149.jpg'));
 
 global OPTICAL_FLOW_ALGORITHM;
 OPTICAL_FLOW_ALGORITHM = 1; %0:lucas_kanade , 1:horn_shunks
@@ -25,11 +25,11 @@ mqBuildCentralPixels(size(KIMAGES{1}, 1), PATCH_SIZE);
 mqBuildOverCompleteDictionary(size(KIMAGES{1}, 1), PATCH_SIZE);
 
 %% Large-Scale Regularized Least Squares
-%%mqL1LS();
+mqL1LS();
 %##mqFPC
 
 %% warping errors effect on coefficients omega
-%%mqGlueWarping(KIMAGES{1});
+mqGlueWarping(KIMAGES{1});
 
 %% STEP 3 $$
 if(SHOW_MSE_ANALYTICS == true)
