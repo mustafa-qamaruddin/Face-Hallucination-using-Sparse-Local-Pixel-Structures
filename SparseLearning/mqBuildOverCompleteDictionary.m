@@ -13,7 +13,9 @@ function [ output_args ] = mqBuildOverCompleteDictionary(NUM_NEAREST_NEIGHBORS ,
     end
     
     %% start building
-    num_of_patches = size(k_patches{1}, 1);
+    temporary_cell = struct2cell(k_patches{1});
+    num_of_patches = size(temporary_cell{1}, 1);
+
     A = cell(num_of_patches, 1); %% Central Pixels
     PSQ = PATCH_SIZE * PATCH_SIZE;
     PSQ_1 = PSQ - 1;

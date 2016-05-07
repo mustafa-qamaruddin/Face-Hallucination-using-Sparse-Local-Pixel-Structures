@@ -13,7 +13,8 @@ function [ output_args ] = mqBuildCentralPixels( NUM_NEAREST_NEIGHBORS , PATCH_S
     end
     
     %% start building
-    num_of_patches = size(k_patches{1}, 1);
+    temporary_cell = struct2cell(k_patches{1});
+    num_of_patches = size(temporary_cell{1}, 1);
     k_patches = cell2mat(k_patches);
     IPSAY = cell(num_of_patches, 1); %% Central Pixels
     CC = ceil(PATCH_SIZE / 2);

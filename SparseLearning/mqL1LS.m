@@ -3,9 +3,13 @@ global VISUALIZE;
 VISUALIZE = true;
     ALL_As = load('overcomplete_dictionary_for_all_patches.mat');
     ALL_IPSAYs = load('central_pixels_for_all_patches.mat');
+    
     ALL_As = struct2cell(ALL_As);
     ALL_IPSAYs = struct2cell(ALL_IPSAYs);
-    num_of_patches = size(ALL_As,1);
+    
+    temporary_array = cell2mat(ALL_As);
+    num_of_patches = size(temporary_array, 1);
+    
     coefficients_omega = cell(num_of_patches, 1);
     for p = 1 : num_of_patches
         A = ALL_As(p);
