@@ -13,15 +13,15 @@ function[out] = mqRefineWarpingError(B)
     
     %% load central pixels
     ALL_IPSAYs = load('central_pixels_for_all_patches.mat');
-    ALL_IPSAYs = struct2cell(ALL_IPSAYs);
+    ALL_IPSAYs = struct2array(ALL_IPSAYs);
     
     %% load overcomplete dictionaries
     ALL_As = load('overcomplete_dictionary_for_all_patches.mat');
-    ALL_As = struct2cell(ALL_As);
+    ALL_As = struct2array(ALL_As);
     
     %% load sparse coefficients omega
     ALL_OMEGAS = load('coefficients_omega_for_all_patches.mat');
-    ALL_OMEGAS = struct2cell(ALL_OMEGAS);
+    ALL_OMEGAS = struct2array(ALL_OMEGAS);
     
     %% initialize empty matrix for refined coefficents
     num_of_patches = size(ALL_As,1);
@@ -42,9 +42,9 @@ function[out] = mqRefineWarpingError(B)
                 B_xy = B(r, c);
                 
                 %% extract cell to matrix cell2mat
-                A = cell2mat(A{1});
-                IPSAY = cell2mat(IPSAY{1});
-                OMEGA = cell2mat(OMEGA{1});
+                A = cell2mat(A);
+                IPSAY = cell2mat(IPSAY);
+                OMEGA = cell2mat(OMEGA);
                 B_xy = cell2mat(B_xy);
                 
                 IPSAY_HAT = transpose(A) * OMEGA;

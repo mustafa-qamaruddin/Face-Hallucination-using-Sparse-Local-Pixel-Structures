@@ -4,8 +4,8 @@ VISUALIZE = true;
     ALL_As = load('overcomplete_dictionary_for_all_patches.mat');
     ALL_IPSAYs = load('central_pixels_for_all_patches.mat');
     
-    ALL_As = struct2cell(ALL_As);
-    ALL_IPSAYs = struct2cell(ALL_IPSAYs);
+    ALL_As = struct2array(ALL_As);
+    ALL_IPSAYs = struct2array(ALL_IPSAYs);
     
     temporary_array = cell2mat(ALL_As);
     num_of_patches = size(temporary_array, 1);
@@ -15,8 +15,8 @@ VISUALIZE = true;
         A = ALL_As(p);
         X0 = ALL_IPSAYs(p);
         if(isempty(A) == false && isempty(X0) == false)
-            A = cell2mat(A{1});
-            X0 = cell2mat(X0{1});
+            A = cell2mat(A);
+            X0 = cell2mat(X0);
             OMEGA = zeros(size(X0, 1), 1);
             y  = A*X0;          % measurements with no noise
             lambda = 0.01;      % regularization parameter

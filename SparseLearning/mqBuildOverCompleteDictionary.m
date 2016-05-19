@@ -9,7 +9,7 @@ function [ output_args ] = mqBuildOverCompleteDictionary(NUM_NEAREST_NEIGHBORS ,
         file_name = sprintf('patches/%d.mat', k);
         k_patches{k} = load(file_name);
         kth_image_patches = k_patches{k}(1);
-        k_patches{k} = kth_image_patches(1);
+        k_patches{k} = struct2array(kth_image_patches(1));
     end
     
     %% start building
@@ -23,11 +23,7 @@ function [ output_args ] = mqBuildOverCompleteDictionary(NUM_NEAREST_NEIGHBORS ,
         %% Dictionary for a single Patch
         SINGLE_PATCH_A = zeros(NUM_NEAREST_NEIGHBORS, PSQ_1);
         for i = 1 : NUM_NEAREST_NEIGHBORS
-            temporary_matrix = cell2mat(k_patches);
-            temporary_cell = temporary_matrix(i);
-            temporary_array = struct2cell(temporary_cell);
-            temporary_x = temporary_array{1};
-            patch = temporary_x{j};
+            patch = cell2mat(k_patches{i}(j));
             if (isempty(patch) == false)
                 temp = reshape(patch, 1, PSQ);
                 len = size(temp, 2);
