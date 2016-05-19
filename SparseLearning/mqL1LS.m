@@ -7,8 +7,7 @@ VISUALIZE = true;
     ALL_As = struct2array(ALL_As);
     ALL_IPSAYs = struct2array(ALL_IPSAYs);
     
-    temporary_array = cell2mat(ALL_As);
-    num_of_patches = size(temporary_array, 1);
+    num_of_patches = size(ALL_As,1);
     
     coefficients_omega = cell(num_of_patches, 1);
     for p = 1 : num_of_patches
