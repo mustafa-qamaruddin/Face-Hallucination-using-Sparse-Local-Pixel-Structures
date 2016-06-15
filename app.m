@@ -6,7 +6,6 @@ PATCH_OVERLAP = 0;
 global VISUALS;
 VISUALS = true;
 global LOW_RES_INPUT_TEST_IMAGE;
-LOW_RES_INPUT_TEST_IMAGE = imread(strcat(pwd, '\' ,'WDF_2678149.jpg'));
 
 global OPTICAL_FLOW_ALGORITHM;
 OPTICAL_FLOW_ALGORITHM = 0; %0:lucas_kanade , 1:horn_shunks
@@ -14,7 +13,11 @@ OPTICAL_FLOW_ALGORITHM = 0; %0:lucas_kanade , 1:horn_shunks
 global SHOW_MSE_ANALYTICS;
 SHOW_MSE_ANALYTICS = true;
 
+global NUMBER_NEAREST_NEIGHBORS;
+
 %% STEP 1 %%
+loadInputImage();
+mqPCA();
 %mqSaveKImages();
 
 %% STEP 2 %%
