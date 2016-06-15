@@ -45,20 +45,26 @@ The steps are separated into their own functions and each function is in its own
 ------------
 
 * The program does the following procedures in order:
-..1. PCA algorithm
-..2. KNN algorithm
-..3. Cut the images into patches
-..4. L1LS sparse learning on patches
-..5. Reconstruct the target high-resolution face image
+
+1. PCA algorithm.
+
+2. KNN algorithm.
+
+3. Cut the images into patches.
+
+4. L1LS sparse learning on patches.
+
+5. Reconstruct the target high-resolution face image.
 
 
 ##### Testing:
 --------------
 
 * The program tests for accuracy using:
-..1. MSE 
-..2. PSNR
-..3. SSIM
+
+1. MSE.
+2. PSNR.
+3. SSIM.
 
 
 The L1LS is tested by applying reverse equation Y^ = X' . A after obtaining X'
