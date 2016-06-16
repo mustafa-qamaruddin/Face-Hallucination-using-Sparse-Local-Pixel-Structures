@@ -19,6 +19,7 @@ function [] = mqPCA()
     num_files = length(image_files);
     table_of_features = zeros(num_files, width*height*3, 1);
     table_of_names = cell(num_files, 1);
+    table_of_names_index = zeros(num_files, 1);
     for i = 1 : num_files
         %% check isDir
         file_name = image_files(i).name;
@@ -36,11 +37,12 @@ function [] = mqPCA()
         end
         table_of_names{i} = full_image_path;
         table_of_features(i, :, :) = reshape(reduced_image, training_width*training_height*3, 1);
+        table_of_names_index(i) = i;
     end
     NUMBER_NEAREST_NEIGHBORS = input('Number of Nearest Neighbors for KNN');
-    Mdl = fitcknn(table_of_features, table_of_names,'NumNeighbors',NUMBER_NEAREST_NEIGHBORS);
-    classification = predict(Mdl, reshape(rshp_lowres, width*height*3, 1));
-    classification
+    sample = reshape(rshp_lowres, width*height*3, 1);
+    cls = knnclassify(sample, table_of_features, table_of_names_index,'NumNeighbors',NUMBER_NEAREST_NEIGHBORS);
+    cls
     save 'table_of_features.mat' table_of_features;
     save 'table_of_names.mat' table_of_names;
 end

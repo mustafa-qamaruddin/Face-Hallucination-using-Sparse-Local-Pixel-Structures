@@ -22,14 +22,13 @@ mqPCA();
 
 %% STEP 2 %%
 KIMAGES = struct2cell(load('kimages.mat'));
-%mqSplitImg2PatchesV2(KIMAGES{1}, PATCH_SIZE, PATCH_OVERLAP);
+mqSplitImg2PatchesV2(KIMAGES{1}, PATCH_SIZE, PATCH_OVERLAP);
 
 %mqBuildCentralPixels(size(KIMAGES{1}, 1), PATCH_SIZE);
-%mqBuildOverCompleteDictionary(size(KIMAGES{1}, 1), PATCH_SIZE);
+mqBuildOverCompleteDictionary(size(KIMAGES{1}, 1), PATCH_SIZE);
 
 %% Large-Scale Regularized Least Squares
-%mqL1LS();
-%##mqFPC
+mqL1LS();
 
 %% warping errors effect on coefficients omega
 mqGlueWarping(KIMAGES{1});
