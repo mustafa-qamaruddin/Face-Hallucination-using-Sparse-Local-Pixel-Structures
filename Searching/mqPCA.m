@@ -24,24 +24,25 @@ function [] = mqPCA()
         %% check isDir
         file_name = image_files(i).name;
         full_image_path = strcat(lowres_dir_path ,'\', file_name);
-        training_image = imread(full_image_path);
-        training_image = double(training_image);
+        original_training_image = imread(full_image_path);
+        training_image = double(original_training_image);
         training_width = size(training_image, 1);
         training_height = size(training_image, 2);
         reshaped_training_image = reshape(training_image, training_width * training_height, 3);
         reduced_image = reshaped_training_image * coeff;
         if(VISUALS == true)
             image_to_be_displayed = reshape(reduced_image, training_width, training_height, 3);
-            imshow(image_to_be_displayed);
+            figure(1), imshow(original_training_image), title('Low Res Training');
+            figure(2), imshow(image_to_be_displayed), title('PCA');
             pause
         end
         table_of_names{i} = full_image_path;
-        table_of_features(i, :, :) = reshape(reduced_image, training_width*training_height*3, 1);
-        table_of_names_index(i) = i;
+        table_of_features(i, :) = reshape(reduced_image, training_width*training_height*3, 1);
+        table_of_names_index(i, 1) = i;
     end
     NUMBER_NEAREST_NEIGHBORS = input('Number of Nearest Neighbors for KNN');
     sample = reshape(rshp_lowres, width*height*3, 1);
-    cls = knnclassify(sample, table_of_features, table_of_names_index,'NumNeighbors',NUMBER_NEAREST_NEIGHBORS);
+    cls = knnclassify(sample, transpose(table_of_features), table_of_names);
     cls
     save 'table_of_features.mat' table_of_features;
     save 'table_of_names.mat' table_of_names;
