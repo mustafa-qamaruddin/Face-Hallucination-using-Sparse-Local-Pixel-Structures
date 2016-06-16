@@ -36,13 +36,14 @@ function [] = mqPCA()
             figure(2), imshow(image_to_be_displayed), title('PCA');
             pause
         end
-        table_of_names{i} = full_image_path;
+        table_of_names{i, 1} = full_image_path;
         table_of_features(i, :) = reshape(reduced_image, training_width*training_height*3, 1);
         table_of_names_index(i, 1) = i;
     end
     NUMBER_NEAREST_NEIGHBORS = input('Number of Nearest Neighbors for KNN');
     sample = reshape(rshp_lowres, width*height*3, 1);
-    cls = knnclassify(sample, transpose(table_of_features), table_of_names);
+    sample_t = transpose(sample);
+    cls = knnclassify(sample_t, table_of_features, table_of_names, NUMBER_NEAREST_NEIGHBORS);
     cls
     save 'table_of_features.mat' table_of_features;
     save 'table_of_names.mat' table_of_names;
