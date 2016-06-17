@@ -26,9 +26,7 @@ global VISUALS;
                 %% visualize
                 if(VISUALS == true)
                     visual_im = step(obj_shape_insert, visual_im, int32([r c patch_size patch_size]));
-                    hold on;
-                    figure, imshow(visual_im), title(sprintf('%dth nearest image', k));
-                    hold off;
+                    figure(k), imshow(visual_im), title(sprintf('%dth nearest image', k));
                 end
                 %% increment inner most loop counters
                 patches_counter = patches_counter + 1;

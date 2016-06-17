@@ -13,9 +13,9 @@ function [] = mqPCA()
     coeff = pca(double(rshp_lowres));
 
     %%####################################################
-    lowres_dir_path = uigetdir;
+    lowres_dir_path = uigetdir('TITLE', 'Open Low Resolution Training Set Directory');
     %addpath(lowres_dir_path);
-    image_files = dir(strcat(lowres_dir_path, '\*.bmp'));
+    image_files = dir(strcat(lowres_dir_path, '\*.jpg'));
     num_files = length(image_files);
     table_of_features = zeros(num_files, width*height*3, 1);
     table_of_names = cell(num_files, 1);
@@ -36,15 +36,20 @@ function [] = mqPCA()
             figure(2), imshow(image_to_be_displayed), title('PCA');
             pause
         end
-        table_of_names{i, 1} = full_image_path;
+        table_of_names{i, 1} = file_name;
         table_of_features(i, :) = reshape(reduced_image, training_width*training_height*3, 1);
         table_of_names_index(i, 1) = i;
     end
-    NUMBER_NEAREST_NEIGHBORS = input('Number of Nearest Neighbors for KNN');
+    NUMBER_NEAREST_NEIGHBORS = input('Number of Nearest Neighbors for KNN: \n');
     sample = reshape(rshp_lowres, width*height*3, 1);
     sample_t = transpose(sample);
-    cls = knnclassify(sample_t, table_of_features, table_of_names, NUMBER_NEAREST_NEIGHBORS);
-    cls
+    cls = knnclassify(sample_t, table_of_features, table_of_names, NUMBER_NEAREST_NEIGHBORS, 'euclidean', 'nearest');
+    for i = 1: size(cls,1)
+        full_image_path = strcat(lowres_dir_path ,'\', cls{i});
+        figure(1), imshow(full_image_path), title('Nearest Neighbor');
+    end
+    save 'knn_cls.mat' cls;
+    save 'table_of_names_index.mat' table_of_names_index;
     save 'table_of_features.mat' table_of_features;
     save 'table_of_names.mat' table_of_names;
 end

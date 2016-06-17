@@ -1,7 +1,9 @@
 function [cell_k_patches] = mqSplitImg2Patches(k_images, patch_size, overlap)
-global VISUALS;
+    
+    global VISUALS;
+    global NUMBER_NEAREST_NEIGHBORS;
     %% loop images
-    for k = 1 : size(k_images)
+    for k = 1 : NUMBER_NEAREST_NEIGHBORS
         im = k_images{k};
         num_patches = ceil((size(im, 1) * size(im, 2)) / (patch_size * patch_size));
         if(overlap > 0)
@@ -12,7 +14,7 @@ global VISUALS;
         patches_counter = 1;
         %% visualize
         if(VISUALS == true)
-            obj_shape_insert = vision.ShapeInserter('BorderColor', 'Custom', 'CustomBorderColor', [46 139 87]);
+            obj_shape_insert = vision.ShapeInserter('BorderColor', 'Custom', 'CustomBorderColor', [46 139 150]);
             visual_im = im;
         end
         %% loop rows
@@ -25,7 +27,7 @@ global VISUALS;
                 patches{patches_counter} = im([r:r+patch_size-1], [c:c+patch_size-1]);
                 %% visualize
                 if(VISUALS == true)
-                    visual_im = step(obj_shape_insert, visual_im, int32([r c patch_size patch_size]));
+                    visual_im = step(obj_shape_insert, visual_im, int32([c r patch_size patch_size]));
                 end
                 %% increment inner most loop counters
                 patches_counter = patches_counter + 1;
@@ -34,7 +36,7 @@ global VISUALS;
         file_name = sprintf('patches/%d.mat', k);
         save(file_name,'patches');
         if(VISUALS == true)
-            figure, imshow(visual_im), title(sprintf('%dth nearest image', k));
+            figure(k), imshow(visual_im), title(sprintf('%dth nearest image', k));
         end
     end %% end loop images
 end

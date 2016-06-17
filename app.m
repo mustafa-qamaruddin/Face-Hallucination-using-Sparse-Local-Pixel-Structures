@@ -18,13 +18,13 @@ global NUMBER_NEAREST_NEIGHBORS;
 %% STEP 1 %%
 loadInputImage();
 mqPCA();
-%mqSaveKImages();
+mqSaveKImages();
 
 %% STEP 2 %%
 KIMAGES = struct2cell(load('kimages.mat'));
-mqSplitImg2PatchesV2(KIMAGES{1}, PATCH_SIZE, PATCH_OVERLAP);
+mqSplitImg2Patches(KIMAGES{1}, PATCH_SIZE, PATCH_OVERLAP);
 
-%mqBuildCentralPixels(size(KIMAGES{1}, 1), PATCH_SIZE);
+mqBuildCentralPixels(size(KIMAGES{1}, 1), PATCH_SIZE);
 mqBuildOverCompleteDictionary(size(KIMAGES{1}, 1), PATCH_SIZE);
 
 %% Large-Scale Regularized Least Squares
