@@ -8,7 +8,7 @@ VISUALS = true;
 global LOW_RES_INPUT_TEST_IMAGE;
 
 global OPTICAL_FLOW_ALGORITHM;
-OPTICAL_FLOW_ALGORITHM = 1; %0:lucas_kanade , 1:horn_shunks
+OPTICAL_FLOW_ALGORITHM = 0; %0:lucas_kanade , 1:horn_shunks
 
 global SHOW_MSE_ANALYTICS;
 SHOW_MSE_ANALYTICS = true;
@@ -17,21 +17,21 @@ global NUMBER_NEAREST_NEIGHBORS;
 
 %% STEP 1 %%
 loadInputImage();
-mqPCA();
-mqSaveKImages();
+%mqPCA();
+%mqSaveKImages();
 
 %% STEP 2 %%
 KIMAGES = struct2cell(load('kimages.mat'));
-mqSplitImg2Patches(KIMAGES{1}, PATCH_SIZE, PATCH_OVERLAP);
+%mqSplitImg2Patches(KIMAGES{1}, PATCH_SIZE, PATCH_OVERLAP);
 
-mqBuildCentralPixels(size(KIMAGES{1}, 1), PATCH_SIZE);
-mqBuildOverCompleteDictionary(size(KIMAGES{1}, 1), PATCH_SIZE);
+%mqBuildCentralPixels(size(KIMAGES{1}, 1), PATCH_SIZE);
+%mqBuildOverCompleteDictionary(size(KIMAGES{1}, 1), PATCH_SIZE);
 
 %% Large-Scale Regularized Least Squares
-mqL1LS();
+%mqL1LS();
 
 %% warping errors effect on coefficients omega
-mqGlueWarping(KIMAGES{1});
+%mqGlueWarping(KIMAGES{1});
 
 %% STEP 3 $$
 if(SHOW_MSE_ANALYTICS == true)
