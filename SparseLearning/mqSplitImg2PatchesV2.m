@@ -35,7 +35,7 @@ global VISUALS;
         file_name = sprintf('patches/%d.mat', k);
         save(file_name,'patches');
         if(VISUALS == true)
-            figure, imshow(visual_im), title(sprintf('%dth nearest image', k));
+            figure(k), imshow(visual_im), title(sprintf('%dth nearest image', k));
         end
     end %% end loop images
 end
