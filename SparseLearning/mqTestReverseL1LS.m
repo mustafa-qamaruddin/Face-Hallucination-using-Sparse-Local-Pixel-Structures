@@ -9,7 +9,7 @@ function [ output_args ] = mqTestReverseL1LS( ipsay, ipsay_hat )
     for i = 1 : size(ipsay, 1)
         error(i) = abs(ipsay(i) - ipsay_hat(i));
     end
-    subplot(3,1,3); bar(error, 'color', 'r');  ylim([0 5]); title('Error between Ipsay and Ipsay^hat');
+    subplot(3,1,3); bar(error);  ylim([0 5]); title('Error between Ipsay and Ipsay^hat');
     hold off
 end
 

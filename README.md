@@ -70,6 +70,9 @@ The steps are separated into their own functions and each function is in its own
 The L1LS is tested by applying reverse equation Y^ = X' . A after obtaining X'
 using L1LS, then Y^ is compared to Y
 
+##### The Complete Reference:
+--------------
+For detailed steps with screen-shots and a video demo, please refer to [Qamar-ud-Din's Blog](https://mustafamahrous.wordpress.com/2016/06/21/an-implementation-of-face-hallucination-using-sparse-local-pixel-structures/)
 
 ##### Contribution:
 -------------------

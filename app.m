@@ -32,7 +32,7 @@ mqBuildOverCompleteDictionary(size(KIMAGES{1}, 1), PATCH_SIZE);
 mqL1LS();
 
 %% warping errors effect on coefficients omega
-mqGlueWarping(KIMAGES{1});
+%%mqGlueWarping(KIMAGES{1});
 
 %% STEP 3 $$
 if(SHOW_MSE_ANALYTICS == true)
